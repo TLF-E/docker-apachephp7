@@ -7,7 +7,7 @@ RUN mkdir /var/testtruc
 RUN mkdir -p /var/www/html
 RUN apt-get update
 RUN yes | apt-get upgrade
-RUN export TERM=xterm
+ENV TERM xterm
 
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
