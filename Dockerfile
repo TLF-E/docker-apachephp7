@@ -1,7 +1,7 @@
 FROM silintl/php7
 MAINTAINER Michael Garrez <michael.garrez@gmail.com>
 
-ENV REFRESHED_AT 2015-05-11
+ENV REFRESHED_AT 2015-09-23
 
 RUN usermod -u 1000 www-data
 RUN mkdir -p /var/www/html
