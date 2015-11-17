@@ -1,8 +1,11 @@
-FROM silintl/php7
+FROM php:7-apache
 MAINTAINER Michael Garrez <michael.garrez@gmail.com>
 
 ENV REFRESHED_AT 2015-09-23
 
+COPY config/php.ini /usr/local/etc/php/
+
+RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 RUN mkdir -p /var/www/html
 RUN apt-get update
