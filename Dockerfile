@@ -5,6 +5,7 @@ ENV REFRESHED_AT 2015-09-23
 
 COPY config/php.ini /usr/local/etc/php/
 
+RUN apt-get update && apt-get install -y libmcrypt-dev
 RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv
 RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
