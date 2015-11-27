@@ -1,0 +1,17 @@
+LogFormat "{ \
+            \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \
+            \"@version\": \"1\", \
+            \"tags\":[\"apache\"], \
+            \"message\": \"%h %l %u %t \\\"%r\\\" %>s %b\", \
+            \"clientip\": \"%a\", \
+            \"duration\": %D, \
+            \"status\": %>s, \
+            \"request\": \"%U%q\", \
+            \"urlpath\": \"%U\", \
+            \"urlquery\": \"%q\", \
+            \"bytes\": %B, \
+            \"method\": \"%m\", \
+            \"site\": \"%{Host}i\", \
+            \"referer\": \"%{Referer}i\", \
+            \"useragent\": \"%{User-agent}i\" \
+           }" apache_access_json
