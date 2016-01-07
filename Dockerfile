@@ -15,7 +15,7 @@ RUN yes | apt-get upgrade
 ENV TERM xterm
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
-RUN update-rc.d cron defaults
+RUN systemctl enable cron
 
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
