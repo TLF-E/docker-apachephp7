@@ -18,4 +18,5 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
 EXPOSE 80
-CMD bash -C '/var/stack_start.sh'
+CMD ["/bin/bash", "/var/stack_start.sh"]
+ENTRYPOINT ["/bin/bash", "/var/stack_start.sh"]
