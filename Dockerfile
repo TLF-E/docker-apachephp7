@@ -53,7 +53,7 @@ RUN buildDeps=" \
     && make clean
 
 RUN apt-get update && apt-get install -y libmcrypt-dev zlib1g-dev vim cron rsyslog git
-RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv zip 
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv zip redis
 RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 RUN mkdir -p /var/www/html
