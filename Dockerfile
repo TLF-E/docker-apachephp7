@@ -53,7 +53,7 @@ RUN buildDeps=" \
     && make clean
 
 RUN apt-get update && apt-get install -y libmcrypt-dev zlib1g-dev vim cron rsyslog git
-RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv zip redis
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv zip
 RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 RUN mkdir -p /var/www/html
@@ -62,6 +62,8 @@ RUN yes | apt-get upgrade
 ENV TERM xterm
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+RUN cd /var/www && git clone -b php7 https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
+RUN echo "extension=redis.so" > /usr/local/etc/php/php.ini
 
 EXPOSE 80
 CMD ["/bin/bash", "/var/stack_start.sh"]
