@@ -54,6 +54,9 @@ RUN buildDeps=" \
 
 RUN apt-get update && apt-get install -y libmcrypt-dev zlib1g-dev vim cron rsyslog git
 RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv zip
+RUN pecl install channel://pecl.php.net/apcu_bc-1.0.3
+RUN docker-php-ext-enable apcu --ini-name 10-docker-php-ext-apcu.ini
+RUN docker-php-ext-enable apc --ini-name 20-docker-php-ext-apc.ini
 RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 RUN mkdir -p /var/www/html
