@@ -1,5 +1,5 @@
 FROM php:7-apache
-MAINTAINER Michael Garrez <michael.garrez@gmail.com>
+MAINTAINER Quanta Future SA <recrutement@quanta.lu>
 
 ENV REFRESHED_AT 2015-09-23
 
@@ -68,6 +68,10 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN cd /var/www && git clone -b php7 https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
 RUN echo "extension=redis.so" > /usr/local/etc/php/php.ini
+
+# Common alias
+RUN alias ls='ls --color=auto'
+RUN alias ll='ls -halF'
 
 EXPOSE 80
 CMD ["/bin/bash", "/var/stack_start.sh"]
