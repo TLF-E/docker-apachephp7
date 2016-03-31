@@ -123,5 +123,9 @@ RUN apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
 
 WORKDIR /var/www
 
+# Common alias
+RUN alias ls='ls --color=auto'
+RUN alias ll='ls -halF'
+
 EXPOSE 80
 CMD ["apache2-foreground"]
