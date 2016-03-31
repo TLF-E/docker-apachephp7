@@ -4,11 +4,11 @@ MAINTAINER Michael Garrez <michael.garrez@gmail.com>
 ENV REFRESHED_AT 2015-09-23
 
 ENV PHP_INI_DIR /usr/local/etc/php
-ENV PHP_FILENAME php-7.0.2.tar.xz
 ENV PHP_EXTRA_BUILD_DEPS apache2-dev
-ENV PHP_VERSION 7.0.2
-ENV PHP_FILENAME php-7.0.2.tar.xz
-ENV PHP_SHA256 556121271a34c442b48e3d7fa3d3bbb4413d91897abbb92aaeced4a7df5f2ab2
+ENV PHP_VERSION 7.0.4
+ENV PHP_FILENAME php-7.0.4.tar.xz
+ENV PHP_SHA256 584e0e374e357a71b6e95175a2947d787453afc7f9ab7c55651c10491c4df532
+ENV GPG_KEYS 1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763
 ENV PHP_EXTRA_CONFIGURE_ARGS --with-apxs2
 
 COPY config/php.ini /usr/local/etc/php/
@@ -29,7 +29,12 @@ RUN buildDeps=" \
     && curl -fSL "http://php.net/get/$PHP_FILENAME/from/this/mirror" -o "$PHP_FILENAME" \
     && echo "$PHP_SHA256 *$PHP_FILENAME" | sha256sum -c - \
     && curl -fSL "http://php.net/get/$PHP_FILENAME.asc/from/this/mirror" -o "$PHP_FILENAME.asc" \
-    && gpg --verify "$PHP_FILENAME.asc" \
+    && export GNUPGHOME="$(mktemp -d)" \
+    && for key in $GPG_KEYS; do \
+        gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+    done \
+    && gpg --batch --verify "$PHP_FILENAME.asc" "$PHP_FILENAME" \
+    && rm -r "$GNUPGHOME" "$PHP_FILENAME.asc" \
     && mkdir -p /usr/src/php \
     && tar -xf "$PHP_FILENAME" -C /usr/src/php --strip-components=1 \
     && rm "$PHP_FILENAME"* \
