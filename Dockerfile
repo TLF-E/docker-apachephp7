@@ -58,6 +58,9 @@ RUN set -xe \
         libxml2-dev \
         libmcrypt-dev \
         zlib1g-dev \
+        libxrender1 \
+        libxtst6 \
+        libfontconfig1 \
         vim \
         cron \
         rsyslog \
