@@ -66,6 +66,8 @@ RUN set -xe \
         rsyslog \
         git \
         xz-utils \
+        libc-client-dev \
+        libkrb5-dev \
     " \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
     && curl -fSL "http://php.net/get/$PHP_FILENAME/from/this/mirror" -o "$PHP_FILENAME" \
@@ -94,6 +96,9 @@ RUN set -xe \
         --with-libedit \
         --with-openssl \
         --with-zlib \
+        --with-imap \
+        --with-kerberos \
+        --with-imap-ssl \
     && make -j"$(nproc)" \
     && make install \
     && { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
