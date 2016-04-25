@@ -19,7 +19,14 @@ RUN apt-get update && apt-get install -y \
         libedit2 \
         libsqlite3-0 \
         libxml2 \
+        -qq npm \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
+
+# Create symbolic link for the npm install
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# Bower install
+RUN npm install --global bower
 
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
@@ -123,6 +130,9 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN cd /var/www && git clone -b php7 https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
 RUN echo "extension=redis.so" > /usr/local/etc/php/php.ini
+
+# Composer global install
+RUN composer global require hirak/prestissimo
 
 RUN apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps
 
