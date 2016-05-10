@@ -75,6 +75,7 @@ RUN set -xe \
         xz-utils \
         libc-client-dev \
         libkrb5-dev \
+        rsync \
     " \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
     && curl -fSL "http://php.net/get/$PHP_FILENAME/from/this/mirror" -o "$PHP_FILENAME" \
