@@ -1,3 +1,5 @@
+MAINTAINER Ghislain GAUCHER <ghislain@qtf.lu>
+
 FROM debian:jessie
 
 # phpize deps
