@@ -1,6 +1,7 @@
+FROM debian:jessie
+
 MAINTAINER Ghislain GAUCHER <ghislain@qtf.lu>
 
-FROM debian:jessie
 
 # phpize deps
 RUN apt-get update && apt-get install -y \
