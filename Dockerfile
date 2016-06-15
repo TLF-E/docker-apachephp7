@@ -135,6 +135,9 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN cd /var/www && git clone -b php7 https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
 RUN echo "extension=redis.so" > /usr/local/etc/php/php.ini
 
+# Memory Limit
+RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
+
 # Composer global install
 RUN composer global require hirak/prestissimo
 
