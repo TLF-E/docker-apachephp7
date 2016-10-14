@@ -52,9 +52,9 @@ ENV PHP_EXTRA_CONFIGURE_ARGS --with-apxs2
 
 ENV GPG_KEYS 1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763
 
-ENV PHP_VERSION 7.0.11
-ENV PHP_FILENAME php-7.0.11.tar.xz
-ENV PHP_SHA256 d4cccea8da1d27c11b89386f8b8e95692ad3356610d571253d00ca67d524c735
+ENV PHP_VERSION 7.0.12
+ENV PHP_FILENAME php-7.0.12.tar.xz
+ENV PHP_SHA256 f3d6c49e1c242e5995dec15e503fde996c327eb86cd7ec45c690e93c971b83ff
 
 RUN set -xe \
     && buildDeps=" \
@@ -124,7 +124,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring mcrypt iconv zip
 RUN pecl install channel://pecl.php.net/apcu_bc-1.0.3
 RUN docker-php-ext-enable apcu --ini-name 10-docker-php-ext-apcu.ini
 RUN docker-php-ext-enable apc --ini-name 20-docker-php-ext-apc.ini
-RUN a2enmod rewrite ssl macro
+RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 RUN mkdir -p /var/www/html
 RUN apt-get update
