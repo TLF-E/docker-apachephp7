@@ -103,6 +103,7 @@ RUN set -xe \
         --enable-mysqlnd \
         --enable-soap \
         --enable-sockets \
+	--enable-ftp \
         --with-curl \
         --with-libedit \
         --with-openssl \
