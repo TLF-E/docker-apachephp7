@@ -28,6 +28,12 @@ RUN apt-get update && apt-get install -y \
 # Create symbolic link for the npm install
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
+# Install npm 2 version.
+RUN npm install -g npm@latest-2
+
+# Install specific node version.
+RUN npm install -g n && n 4.*
+
 # Bower install
 RUN npm install --global bower
 
