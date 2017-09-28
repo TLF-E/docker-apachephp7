@@ -59,9 +59,9 @@ ENV PHP_EXTRA_CONFIGURE_ARGS --with-apxs2
 #ENV GPG_KEYS A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0
 ENV GPG_KEYS 1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763 6E4F6AB321FDC07F2C332E3AC2BF0BC433CFC8B3
 
-ENV PHP_VERSION 7.0.22
-ENV PHP_FILENAME php-7.0.22.tar.xz
-ENV PHP_SHA256 408c3fbc235ec940433bfac1f3ed4bf797f61b4a1693b9fb0b6a04b2c1832501
+ENV PHP_VERSION 7.0.24
+ENV PHP_FILENAME php-7.0.24.tar.xz
+ENV PHP_SHA256 4dba7aa365193c9229f89f1975fad4c01135d29922a338ffb4a27e840d6f1c98
 
 RUN set -xe \
     && buildDeps=" \
@@ -141,7 +141,8 @@ RUN yes | apt-get upgrade
 ENV TERM xterm
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
-RUN cd /var/www && git clone -b php7 https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
+
+RUN cd /var/www && git clone -b master https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
 RUN echo "extension=redis.so" > /usr/local/etc/php/php.ini
 
 # Memory Limit
