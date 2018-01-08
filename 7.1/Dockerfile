@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Ghislain GAUCHER <ghislain@qtf.lu>
+MAINTAINER Ghislain GAUCHER <ghislain@lancaster-solutions.com>
 
 
 # phpize deps
