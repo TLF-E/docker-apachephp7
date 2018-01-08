@@ -14,18 +14,17 @@ RUN apt-get update && apt-get install -y \
         make \
         pkg-config \
         re2c \
-        libpng-dev \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+        libpng-dev
 
 # persistent / runtime deps
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
         ca-certificates \
         curl \
         libedit2 \
         libsqlite3-0 \
         libxml2 \
         -qq npm \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    --no-install-recommends
 
 # Create symbolic link for the npm install
 RUN ln -s /usr/bin/nodejs /usr/bin/node
