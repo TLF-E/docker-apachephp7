@@ -2,6 +2,7 @@ FROM debian:jessie
 
 MAINTAINER Ghislain GAUCHER <ghislain@lancaster-solutions.com>
 
+RUN apt-key update
 
 # phpize deps
 RUN apt-get update && apt-get install -y \
