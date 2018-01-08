@@ -5,7 +5,7 @@ MAINTAINER Ghislain GAUCHER <ghislain@lancaster-solutions.com>
 RUN apt-key update
 
 # phpize deps
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -y --fix-missing && apt-get install -y \
         autoconf \
         file \
         g++ \
