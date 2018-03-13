@@ -143,8 +143,13 @@ ENV TERM xterm
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+# xDebug
+RUN cd /var/www && git clone -b master https://github.com/xdebug/xdebug.git && cd /var/www/xdebug && phpize && ./configure --enable-xdebug && make && make install
+RUN echo "zend_extension=xdebug.so" >> /usr/local/etc/php/php.ini
+
+# Redis
 RUN cd /var/www && git clone -b master https://github.com/phpredis/phpredis.git && cd /var/www/phpredis && phpize && ./configure && make && make install
-RUN echo "extension=redis.so" > /usr/local/etc/php/php.ini
+RUN echo "extension=redis.so" >> /usr/local/etc/php/php.ini
 
 # Memory Limit
 RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
