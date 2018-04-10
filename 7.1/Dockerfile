@@ -33,7 +33,7 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN npm install -g npm@latest-2
 
 # Install specific node version.
-RUN npm install -g n && n 4.*
+RUN npm install -g n && n 8.*
 
 # Bower install
 RUN npm install --global bower

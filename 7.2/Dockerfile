@@ -32,8 +32,8 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 # Install npm 2 version.
 RUN npm install -g npm@latest-2
 
-# Install specific node version. 8.10 LTS
-RUN npm install -g n && n 8.10
+# Install specific node version. 8 LTS
+RUN npm install -g n && n 8.*
 
 # Bower install
 RUN npm install --global bower
