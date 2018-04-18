@@ -29,14 +29,12 @@ RUN apt-get install -y \
 # Create symbolic link for the npm install
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-# Install npm 2 version.
-RUN npm install -g npm@latest-2
 
 # Install specific node version.
 RUN npm install -g n && n 8.*
 
-# Bower install
-RUN npm install --global bower
+# Install npm 2 version.
+RUN npm install -g npm@latest-5
 
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
