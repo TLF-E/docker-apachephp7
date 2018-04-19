@@ -29,7 +29,7 @@ RUN apt-get install -y \
 # Create symbolic link for the npm install
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-
+gh
 # Install specific node version.
 RUN npm install -g n && n 8.*
 
