@@ -18,6 +18,7 @@ RUN apt-get update -y --fix-missing && apt-get install -y \
 
 # persistent / runtime deps
 RUN apt-get install -y \
+        openssh-client \
         ca-certificates \
         curl \
         libedit2 \
