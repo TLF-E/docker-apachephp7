@@ -33,8 +33,8 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 # Install specific node version.
 RUN npm install -g n && n 8.*
 
-# Install npm 2 version.
-RUN npm install -g npm@latest-5
+# Install npm.
+RUN npm install -g npm@latest-5 npm-cli-login
 
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
@@ -166,4 +166,5 @@ RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
 
 EXPOSE 80
-CMD ["apache2-foreground"]
+
+ENTRYPOINT ["apache2-foreground"]

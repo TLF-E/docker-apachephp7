@@ -30,14 +30,11 @@ RUN apt-get install -y \
 # Create symbolic link for the npm install
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-# Install npm 2 version.
-RUN npm install -g npm@latest-2
-
 # Install specific node version.
-RUN npm install -g n && n 4.*
+RUN npm install -g n && n 8.*
 
-# Bower install
-RUN npm install --global bower
+# Install npm.
+RUN npm install -g npm@latest-5 npm-cli-login
 
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
@@ -160,7 +157,6 @@ RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
 RUN composer global require hirak/prestissimo
 
 RUN apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps
-
 RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www
@@ -170,4 +166,5 @@ RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
 
 EXPOSE 80
-CMD ["apache2-foreground"]
+
+ENTRYPOINT ["apache2-foreground"]
