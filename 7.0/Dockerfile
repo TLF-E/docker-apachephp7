@@ -31,10 +31,10 @@ RUN apt-get install -y \
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # Install specific node version.
-RUN npm install -g n && n 8.*
+RUN npm install -g n && n 8.11
 
 # Install npm.
-RUN npm install -g npm@latest-5 npm-cli-login
+RUN npm install -g npm@next-6 npm-cli-login
 
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
