@@ -91,7 +91,7 @@ RUN set -xe \
     && curl -fSL "http://php.net/get/$PHP_FILENAME.asc/from/this/mirror" -o "$PHP_FILENAME.asc" \
     && export GNUPGHOME="$(mktemp -d)" \
     && for key in $GPG_KEYS; do \
-        gpg --keyserver sks.mj2.uk --recv-keys "$key"; \
+        gpg --no-tty --keyserver sks.mj2.uk --recv-keys "$key"; \
     done \
     && gpg --batch --verify "$PHP_FILENAME.asc" "$PHP_FILENAME" \
     && rm -r "$GNUPGHOME" "$PHP_FILENAME.asc" \
