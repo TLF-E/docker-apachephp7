@@ -26,6 +26,7 @@ RUN apt-get install -y \
         libedit2 \
         libsqlite3-0 \
         libxml2 \
+        acl \
     --no-install-recommends
 
 # Install node and npm.
