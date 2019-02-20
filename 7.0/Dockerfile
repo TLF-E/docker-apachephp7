@@ -6,7 +6,7 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 # Packages
-RUN apt-get install -y gnupg curl acl vim htop wget ca-certificates apt-transport-https
+RUN apt-get install -y gnupg curl acl vim htop wget ca-certificates apt-transport-https libpng-dev
 
 # SSH
 
