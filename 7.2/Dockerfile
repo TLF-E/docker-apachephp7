@@ -17,7 +17,7 @@ COPY ./config/ssh/config /root/.ssh/
 RUN apt-get install -y git
 
 # Node and NPM
-RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node
+RUN curl -sL https://deb.nodesource.com/setup_12.x > setup_node && chmod +x setup_node && ./setup_node
 RUN apt-get install -y nodejs
 RUN npm install -g npm-cli-login
 
