@@ -43,6 +43,8 @@ COPY ./apache2-foreground /usr/local/bin/
 
 # PHP ini
 
+RUN echo "date.timezone=Europe/Paris" > /etc/php/7.2/cli/conf.d/timezone.ini
+RUN echo "date.timezone=Europe/Paris" > /etc/php/7.2/apache2/conf.d/timezone.ini
 RUN echo "memory_limit=2048M" > /etc/php/7.2/cli/conf.d/memory-limit.ini
 RUN echo "memory_limit=2048M" > /etc/php/7.2/apache2/conf.d/memory-limit.ini
 
