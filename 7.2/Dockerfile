@@ -30,6 +30,10 @@ RUN apt-get install -y php7.2 php7.2-xml php7.2-soap php7.2-curl php7.2-imap php
 RUN apt-get install -y php7.2-mbstring php7.2-iconv php7.2-zip php7.2-gd php7.2-bcmath php7.2-dev php7.2-redis
 RUN update-alternatives --set php /usr/bin/php7.2
 
+# PECL
+RUN apt-get install -y php-pear php-dev
+RUN pecl install timecop-beta
+
 # Apache
 
 RUN apt-get install -y apache2
@@ -47,6 +51,8 @@ RUN echo "date.timezone=Europe/Paris" > /etc/php/7.2/cli/conf.d/timezone.ini
 RUN echo "date.timezone=Europe/Paris" > /etc/php/7.2/apache2/conf.d/timezone.ini
 RUN echo "memory_limit=2048M" > /etc/php/7.2/cli/conf.d/memory-limit.ini
 RUN echo "memory_limit=2048M" > /etc/php/7.2/apache2/conf.d/memory-limit.ini
+RUN echo "extension=timecop.so" > /etc/php/7.2/cli/conf.d/20-timecop.ini
+RUN echo "extension=timecop.so" > /etc/php/7.2/apache2/conf.d/20-timecop.ini
 
 # Composer
 
