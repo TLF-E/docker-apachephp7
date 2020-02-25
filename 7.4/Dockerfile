@@ -20,6 +20,7 @@ RUN apt -y update \
     unzip \
     vim \
     wget \
+    redis-tools \
 # Node and NPM
  && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
  && apt install -y nodejs \
