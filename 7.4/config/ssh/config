@@ -1,5 +1,5 @@
 Host *
-    StrictHostKeybChecking no
+    StrictHostKeyChecking no
 
 Host backoffice_style
     Hostname github.com
