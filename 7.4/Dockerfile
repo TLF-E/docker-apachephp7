@@ -13,6 +13,7 @@ RUN apt -y update \
     ca-certificates \
     curl \
     git \
+    ssh-client \
     gnupg \
     htop \
     libpng-dev \
