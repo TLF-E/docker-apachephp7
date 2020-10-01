@@ -23,6 +23,7 @@ RUN apt -y update \
     wget \
     redis-tools \
     imagemagick \
+    ghostscript \
 # Node and NPM
  && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
  && apt install -y nodejs \
@@ -47,6 +48,7 @@ RUN apt -y update \
     php7.4-xdebug \
     php7.4-xml \
     php7.4-zip \
+    php7.4-imagick \
  && update-alternatives --set php /usr/bin/php7.4 \
 # PECL
  && apt install -y --no-install-recommends php-pear php-dev \
