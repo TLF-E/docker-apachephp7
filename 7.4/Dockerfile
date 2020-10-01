@@ -22,6 +22,7 @@ RUN apt -y update \
     vim \
     wget \
     redis-tools \
+    imagemagick \
 # Node and NPM
  && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
  && apt install -y nodejs \
