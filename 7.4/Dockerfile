@@ -49,9 +49,10 @@ RUN apt -y update \
     php7.4-xml \
     php7.4-zip \
     php7.4-imagick \
+    php7.4-amqp \
  && update-alternatives --set php /usr/bin/php7.4 \
 # PECL
- && apt install -y --no-install-recommends php-pear php-dev \
+ && apt install -y --no-install-recommends php-pear php7.4-dev \
  && pecl install timecop-beta \
 # Apache
  && apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
