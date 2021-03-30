@@ -28,6 +28,10 @@ RUN apt -y update \
  && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
  && apt install -y nodejs \
  && npm install -g npm-cli-login \
+# Amqproxy
+ && wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | sudo apt-key add - \
+ && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/amqproxy.list \
+ && apt install -y amqproxy \
 # PHP
  && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
  && echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list \
@@ -49,7 +53,6 @@ RUN apt -y update \
     php7.4-xml \
     php7.4-zip \
     php7.4-imagick \
-    php7.4-amqp \
  && update-alternatives --set php /usr/bin/php7.4 \
 # PECL
  && apt install -y --no-install-recommends php-pear php7.4-dev \
