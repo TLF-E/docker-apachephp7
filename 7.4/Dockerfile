@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 MAINTAINER Ghislain GAUCHER <ghislain@lancaster-solutions.com>
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0.13 /usr/bin/composer /usr/bin/composer
 # SSH
 COPY ./config/ssh/config /root/.ssh/
 RUN apt -y update \
@@ -66,8 +66,6 @@ RUN apt -y update \
  && echo "memory_limit=2048M" > /etc/php/7.4/apache2/conf.d/memory-limit.ini \
  && echo "extension=timecop.so" > /etc/php/7.4/cli/conf.d/20-timecop.ini \
  && echo "extension=timecop.so" > /etc/php/7.4/apache2/conf.d/20-timecop.ini \
-# Composer
- && composer global require hirak/prestissimo \
 # Bashrc
  && echo "alias ls='ls --color=auto'" >> .bashrc \
  && echo "alias ll='ls -halF'" >> .bashrc \
