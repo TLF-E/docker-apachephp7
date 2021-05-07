@@ -30,7 +30,8 @@ RUN apt -y update \
  && npm install -g npm-cli-login \
 # Amqproxy
  && wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \
- && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/amqproxy.list \
+ && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ stretch main" | tee /etc/apt/sources.list.d/amqproxy.list \
+ && apt -y update \
  && apt install -y amqproxy \
 # PHP
  && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
