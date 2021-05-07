@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 MAINTAINER Ghislain GAUCHER <ghislain@lancaster-solutions.com>
-COPY --from=composer:2.0.13 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # SSH
 COPY ./config/ssh/config /root/.ssh/
 RUN apt -y update \
