@@ -58,7 +58,6 @@ RUN echo "extension=timecop.so" > /etc/php/7.2/apache2/conf.d/20-timecop.ini
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
-RUN composer global require hirak/prestissimo
 
 # Bashrc
 
