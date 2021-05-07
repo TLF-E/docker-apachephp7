@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 MAINTAINER Ghislain GAUCHER <ghislain@lancaster-solutions.com>
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -26,16 +26,17 @@ RUN apt -y update \
     ghostscript \
 # Node and NPM
  && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
- && apt install -y nodejs \
+ && apt install -y npm nodejs \
+ && apt -y update \
  && npm install -g npm-cli-login \
 # Amqproxy
  && wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \
- && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ stretch main" | tee /etc/apt/sources.list.d/amqproxy.list \
+ && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ bionic main" | tee /etc/apt/sources.list.d/amqproxy.list \
  && apt -y update \
  && apt install -y amqproxy \
 # PHP
  && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
- && echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list \
+ && echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list \
  && apt -y update \
  && apt install -y --no-install-recommends \
     php7.4 \

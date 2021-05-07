@@ -31,7 +31,7 @@ RUN apt-get install -y php7.2-mbstring php7.2-iconv php7.2-zip php7.2-gd php7.2-
 RUN update-alternatives --set php /usr/bin/php7.2
 
 # PECL
-RUN apt-get install -y --no-install-recommends php-pear php7.2-dev
+RUN apt-get install -y php-pear php-dev
 RUN pecl install timecop-beta
 
 # Apache
