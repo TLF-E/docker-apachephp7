@@ -29,8 +29,8 @@ RUN apt -y update \
  && apt install -y nodejs \
  && npm install -g npm-cli-login \
 # Amqproxy
- && wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | sudo apt-key add - \
- && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/amqproxy.list \
+ && wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \
+ && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/amqproxy.list \
  && apt install -y amqproxy \
 # PHP
  && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
