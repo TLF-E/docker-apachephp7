@@ -40,7 +40,8 @@ RUN apt-get install -y apache2
 RUN a2dismod mpm_event php*
 RUN a2enmod mpm_prefork php7.2 rewrite ssl macro headers proxy proxy_http proxy_wstunnel
 
-RUN pecl install xdebug-2.9.8
+RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
+RUN rm /etc/apache2/conf-enabled/* /etc/apache2/sites-enabled/*
 COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
 
