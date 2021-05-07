@@ -47,7 +47,7 @@ COPY ./apache2-foreground /usr/local/bin/
 
 # xDebug
 
-RUN pecl install xdebug-2.9.8
+RUN pecl install xdebug-2.8.1
 RUN echo "zend_extension=xdebug.so" >> /etc/php/7.0/apache2/conf.d/xdebug.ini
 RUN echo "zend_extension=xdebug.so" >> /etc/php/7.0/cli/conf.d/xdebug.ini
 
