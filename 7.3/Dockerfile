@@ -31,7 +31,7 @@ RUN apt-get install -y php7.3-mbstring php7.3-iconv php7.3-zip php7.3-gd php7.3-
 RUN update-alternatives --set php /usr/bin/php7.3
 
 # PECL
-RUN apt-get install -y php-pear php-dev
+RUN apt-get install -y php-pear php7.3-dev
 RUN pecl install timecop-beta
 
 # Apache
@@ -58,7 +58,6 @@ RUN echo "extension=timecop.so" > /etc/php/7.3/apache2/conf.d/20-timecop.ini
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
-RUN composer global require hirak/prestissimo
 
 # Bashrc
 

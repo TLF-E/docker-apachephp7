@@ -31,7 +31,7 @@ RUN apt-get install -y php7.2-mbstring php7.2-iconv php7.2-zip php7.2-gd php7.2-
 RUN update-alternatives --set php /usr/bin/php7.2
 
 # PECL
-RUN apt-get install -y php-pear php-dev
+RUN apt-get install -y php-pear php7.2-dev
 RUN pecl install timecop-beta
 
 # Apache
@@ -40,8 +40,7 @@ RUN apt-get install -y apache2
 RUN a2dismod mpm_event php*
 RUN a2enmod mpm_prefork php7.2 rewrite ssl macro headers proxy proxy_http proxy_wstunnel
 
-RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
-RUN rm /etc/apache2/conf-enabled/* /etc/apache2/sites-enabled/*
+RUN pecl install xdebug-2.9.8
 COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
 
@@ -58,7 +57,6 @@ RUN echo "extension=timecop.so" > /etc/php/7.2/apache2/conf.d/20-timecop.ini
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
-RUN composer global require hirak/prestissimo
 
 # Bashrc
 
