@@ -27,7 +27,7 @@ RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
 RUN apt-get -y update
 RUN apt-get install -y php7.1 php7.1-xml php7.1-soap php7.1-curl php7.1-imap php7.1-intl php7.1-mysql
-RUN apt-get install -y php7.1-mbstring php7.1-iconv php7.1-zip php7.1-gd php7.1-bcmath php7.1-dev php7.1-redis
+RUN apt-get install -y php7.1-mbstring php7.1-iconv php7.1-zip php7.1-gd php7.1-bcmath php7.1-redis
 RUN update-alternatives --set php /usr/bin/php7.1
 
 # PECL
