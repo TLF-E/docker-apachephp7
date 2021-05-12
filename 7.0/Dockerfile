@@ -27,11 +27,11 @@ RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
 RUN apt-get -y update
 RUN apt-get install -y php7.0 php7.0-xml php7.0-soap php7.0-curl php7.0-imap php7.0-intl php7.0-mysql
-RUN apt-get install -y php7.0-mbstring php7.0-iconv php7.0-zip php7.0-gd php7.0-bcmath php7.0-dev php7.0-redis
+RUN apt-get install -y php7.0-mbstring php7.0-iconv php7.0-zip php7.0-gd php7.0-bcmath php7.0-redis
 RUN update-alternatives --set php /usr/bin/php7.0
 
 # PECL
-RUN apt-get install -y php-pear php-dev
+RUN apt-get install -y php-pear php7.0-dev
 RUN pecl install timecop-beta
 
 # Apache
@@ -47,8 +47,7 @@ COPY ./apache2-foreground /usr/local/bin/
 
 # xDebug
 
-RUN cd /var/www && git clone -b master https://github.com/xdebug/xdebug.git
-RUN cd /var/www/xdebug && phpize && ./configure --enable-xdebug && make && make install
+RUN pecl install xdebug-2.8.1
 RUN echo "zend_extension=xdebug.so" >> /etc/php/7.0/apache2/conf.d/xdebug.ini
 RUN echo "zend_extension=xdebug.so" >> /etc/php/7.0/cli/conf.d/xdebug.ini
 
@@ -65,7 +64,6 @@ RUN echo "extension=timecop.so" > /etc/php/7.0/apache2/conf.d/20-timecop.ini
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
-RUN composer global require hirak/prestissimo
 
 # Bashrc
 

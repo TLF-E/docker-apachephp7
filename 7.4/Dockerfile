@@ -51,10 +51,10 @@ RUN apt -y update \
     php7.4-imagick \
  && update-alternatives --set php /usr/bin/php7.4 \
 # PECL
- && apt install -y --no-install-recommends php-pear php-dev \
- && pecl install timecop-beta \
+ && apt install -y --no-install-recommends php-pear php7.4-dev
+RUN pecl install timecop-beta
 # Apache
- && apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
+RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && a2dismod mpm_event php7.4 \
  && a2enmod mpm_prefork php7.4 rewrite ssl macro headers proxy proxy_http proxy_wstunnel \
  && mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist \
@@ -66,8 +66,6 @@ RUN apt -y update \
  && echo "memory_limit=2048M" > /etc/php/7.4/apache2/conf.d/memory-limit.ini \
  && echo "extension=timecop.so" > /etc/php/7.4/cli/conf.d/20-timecop.ini \
  && echo "extension=timecop.so" > /etc/php/7.4/apache2/conf.d/20-timecop.ini \
-# Composer
- && composer global require hirak/prestissimo \
 # Bashrc
  && echo "alias ls='ls --color=auto'" >> .bashrc \
  && echo "alias ll='ls -halF'" >> .bashrc \
