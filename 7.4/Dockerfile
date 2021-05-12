@@ -60,7 +60,7 @@ RUN apt -y update \
  && apt install -y --no-install-recommends php-pear php7.4-dev \
  && pecl install timecop-beta \
 # Apache
-RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
+ && apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && a2dismod mpm_event php7.4 \
  && a2enmod mpm_prefork php7.4 rewrite ssl macro headers proxy proxy_http proxy_wstunnel \
  && mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist \
