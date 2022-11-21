@@ -59,6 +59,13 @@ RUN apt -y update \
 # PECL
  && apt install -y --no-install-recommends php-pear php7.4-dev \
  && pecl install timecop-beta \
+# Kafka \
+ && cd /tmp/ \
+ && git clone https://github.com/edenhill/librdkafka.git \
+ && cd librdkafka \
+ && ./configure \
+ && make && make install \
+ && echo '' | pecl install rdkafka \
 # Apache
  && apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && a2dismod mpm_event php7.4 \
@@ -76,6 +83,7 @@ RUN apt -y update \
  && echo "post_max_size=30M" >> /etc/php/7.4/cli/conf.d/20-upload-limits.ini \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
  && echo "post_max_size=30M" >> /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
+ && echo "extension=rdkafka.so" > /etc/php/7.4/cli/conf.d/15-kafka.ini \
 # Bashrc
  && echo "alias ls='ls --color=auto'" >> .bashrc \
  && echo "alias ll='ls -halF'" >> .bashrc \
