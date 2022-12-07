@@ -84,6 +84,7 @@ RUN apt -y update \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
  && echo "post_max_size=30M" >> /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
  && echo "extension=rdkafka.so" > /etc/php/7.4/cli/conf.d/15-kafka.ini \
+ && echo "extension=rdkafka.so" > /etc/php/7.4/apache2/conf.d/15-kafka.ini \
 # Bashrc
  && echo "alias ls='ls --color=auto'" >> .bashrc \
  && echo "alias ll='ls -halF'" >> .bashrc \
