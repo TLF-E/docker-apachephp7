@@ -63,9 +63,6 @@ RUN apt-get update -y
 RUN apt-get install php-pear
 RUN pecl channel-update pecl.php.net
 RUN pear config-set php_ini /etc/php/8.1/apache2/php.ini
-## TO VALIDATE
-RUN apt-get install -y sed
-
 RUN ln -s /bin/sed /usr/bin/sed
 RUN pecl install uopz
 RUN echo extension=\"uopz.so\" > /etc/php/8.1/mods-available/uopz.ini
