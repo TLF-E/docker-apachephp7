@@ -23,19 +23,20 @@ RUN apt -y update \
     wget \
     redis-tools \
     imagemagick \
-    ghostscript \
+    ghostscript
 # Node and NPM
- && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
+RUN ln -s /bin/sed /usr/bin/sed 
+RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
  && apt install -y npm nodejs \
  && apt -y update \
- && npm install -g npm-cli-login \
+ && npm install -g npm-cli-login babel-cli
 # Amqproxy
- && wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \
+RUN wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \
  && echo "deb https://packagecloud.io/cloudamqp/amqproxy/ubuntu/ bionic main" | tee /etc/apt/sources.list.d/amqproxy.list \
  && apt -y update \
- && apt install -y amqproxy \
+ && apt install -y amqproxy
 # PHP
- && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
+RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
  && echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list \
  && apt -y update \
  && apt install -y --no-install-recommends \
