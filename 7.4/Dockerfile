@@ -24,6 +24,8 @@ RUN apt -y update \
     redis-tools \
     imagemagick \
     ghostscript \
+# Git config
+ && git config --system --add safe.directory '*' \
 # Node and NPM
  && curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
  && apt install -y npm nodejs \
@@ -65,6 +67,7 @@ RUN apt -y update \
  && cd librdkafka \
  && ./configure \
  && make && make install \
+ && cd /tmp/ && rm -rf /tmp/librdkafka \
  && echo '' | pecl install rdkafka \
 # Apache
  && apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \

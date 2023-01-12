@@ -24,6 +24,8 @@ RUN apt-get install -y --no-install-recommends \
     redis-tools \
     imagemagick \
     ghostscript
+# Git config
+RUN git config --system --add safe.directory '*'
 # Node and NPM
 RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node
 RUN apt-get install -y npm nodejs
@@ -73,6 +75,7 @@ RUN cd /tmp/ \
  && cd librdkafka \
  && ./configure \
  && make && make install \
+ && cd /tmp/ && rm -rf /tmp/librdkafka \
  && echo '' | pecl install rdkafka
 # Apache
 RUN apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.1
