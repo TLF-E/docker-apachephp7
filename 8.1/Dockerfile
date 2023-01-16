@@ -1,4 +1,5 @@
-FROM debian:buster
+ARG ARCH=
+FROM ${ARCH}debian:buster
 
 LABEL "Author"="Ghislain GAUCHER <ghislain@lancaster-solutions.com>"
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -24,8 +25,7 @@ RUN apt-get install -y --no-install-recommends \
     redis-tools \
     imagemagick \
     ghostscript
-# Git config
-RUN git config --system --add safe.directory '*'
+
 # Node and NPM
 RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node
 RUN apt-get install -y npm nodejs
@@ -64,6 +64,7 @@ RUN apt-get update -y
 RUN apt-get install php-pear
 RUN pecl channel-update pecl.php.net
 RUN pear config-set php_ini /etc/php/8.1/apache2/php.ini
+RUN ln -s /bin/sed /usr/bin/sed
 RUN pecl install uopz
 RUN echo extension=\"uopz.so\" > /etc/php/8.1/mods-available/uopz.ini
 RUN ln -s /etc/php/8.1/mods-available/uopz.ini /etc/php/8.1/cli/conf.d/20-uopz.ini
@@ -99,6 +100,8 @@ RUN rm -rf /var/lib/apt/lists/*
 # APACHE
 COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
+#GIT
+COPY ./config/gitconfig /root/.gitconfig
 
 EXPOSE 80
 WORKDIR /var/www
