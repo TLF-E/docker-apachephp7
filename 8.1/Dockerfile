@@ -1,4 +1,5 @@
-FROM debian:buster
+ARG ARCH=
+FROM ${ARCH}debian:buster
 
 LABEL "Author"="Ghislain GAUCHER <ghislain@lancaster-solutions.com>"
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -62,6 +63,7 @@ RUN apt-get update -y
 RUN apt-get install php-pear
 RUN pecl channel-update pecl.php.net
 RUN pear config-set php_ini /etc/php/8.1/apache2/php.ini
+RUN ln -s /bin/sed /usr/bin/sed
 RUN pecl install uopz
 RUN echo extension=\"uopz.so\" > /etc/php/8.1/mods-available/uopz.ini
 RUN ln -s /etc/php/8.1/mods-available/uopz.ini /etc/php/8.1/cli/conf.d/20-uopz.ini
