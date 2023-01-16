@@ -89,6 +89,8 @@ RUN rm -rf /var/lib/apt/lists/*
 # APACHE
 COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
+#GIT
+COPY ./config/gitconfig /root/.gitconfig
 
 EXPOSE 80
 WORKDIR /var/www
