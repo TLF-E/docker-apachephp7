@@ -81,8 +81,7 @@ RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && echo "memory_limit=2048M" > /etc/php/7.4/cli/conf.d/memory-limit.ini \
  && echo "memory_limit=2048M" > /etc/php/7.4/apache2/conf.d/memory-limit.ini \
  && echo "extension=timecop.so" > /etc/php/7.4/cli/conf.d/20-timecop.ini \
- && echo "extension=timecop.so" > /etc/php/7.4/apache2/conf.d/20- \
-    .ini \
+ && echo "extension=timecop.so" > /etc/php/7.4/apache2/conf.d/20-timecop.ini \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/cli/conf.d/20-upload-limits.ini \
  && echo "post_max_size=30M" >> /etc/php/7.4/cli/conf.d/20-upload-limits.ini \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
@@ -100,6 +99,7 @@ COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
 #GIT
 COPY ./config/gitconfig /root/.gitconfig
+RUN git config --system --add safe.directory '*'
 
 EXPOSE 80
 WORKDIR /var/www

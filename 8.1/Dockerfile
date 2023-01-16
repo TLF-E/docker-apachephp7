@@ -25,7 +25,6 @@ RUN apt-get install -y --no-install-recommends \
     redis-tools \
     imagemagick \
     ghostscript
-
 # Node and NPM
 RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node
 RUN apt-get install -y npm nodejs
@@ -102,6 +101,7 @@ COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
 #GIT
 COPY ./config/gitconfig /root/.gitconfig
+RUN git config --system --add safe.directory '*'
 
 EXPOSE 80
 WORKDIR /var/www
