@@ -54,6 +54,7 @@ RUN apt-get install -y --no-install-recommends \
     php8.1-xml \
     php8.1-zip \
     php8.1-imagick \
+    php8.1-amqp \
  && update-alternatives --set php /usr/bin/php8.1
 # PECL
 RUN apt-get install -y --no-install-recommends php8.1-dev
