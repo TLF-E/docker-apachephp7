@@ -81,8 +81,6 @@ RUN echo "date.timezone=UTC" > /etc/php/8.1/cli/conf.d/timezone.ini
 RUN echo "date.timezone=UTC" > /etc/php/8.1/apache2/conf.d/timezone.ini
 RUN echo "memory_limit=2048M" > /etc/php/8.1/cli/conf.d/memory-limit.ini
 RUN echo "memory_limit=2048M" > /etc/php/8.1/apache2/conf.d/memory-limit.ini
-#RUN echo "extension=amqp.so" > /etc/php/8.1/cli/conf.d/15-amqp.ini
-#RUN echo "extension=amqp.so" > /etc/php/8.1/apache2/conf.d/15-amqp.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
