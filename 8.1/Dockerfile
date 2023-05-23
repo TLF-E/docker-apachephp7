@@ -68,7 +68,12 @@ RUN pecl install uopz
 RUN echo extension=\"uopz.so\" > /etc/php/8.1/mods-available/uopz.ini
 RUN ln -s /etc/php/8.1/mods-available/uopz.ini /etc/php/8.1/cli/conf.d/20-uopz.ini
 RUN composer global require --dev slope-it/clock-mock
-# end of V2-8301
+# CELB-599 zookeeper
+RUN apt-get -y install libzookeeper-mt2 libzookeeper-mt-dev
+RUN pecl install zookeeper-1.2.1
+RUN apt-get remove --purge -y libzookeeper-mt-dev
+RUN echo extension=\"zookeeper.so\" > /etc/php/8.1/mods-available/zookeeper.ini
+RUN ln -s /etc/php/8.1/mods-available/zookeeper.ini /etc/php/8.1/cli/conf.d/20-zookeeper.ini
 # Apache
 RUN apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.1
 RUN a2dismod mpm_event php8.1
