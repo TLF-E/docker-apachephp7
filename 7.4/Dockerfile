@@ -56,6 +56,7 @@ RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
     php7.4-xml \
     php7.4-zip \
     php7.4-imagick \
+    php7.4-amqp \
  && update-alternatives --set php /usr/bin/php7.4
 # PECL
 RUN ln -s /bin/sed /usr/bin/sed
@@ -73,8 +74,7 @@ RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && echo "memory_limit=2048M" > /etc/php/7.4/cli/conf.d/memory-limit.ini \
  && echo "memory_limit=2048M" > /etc/php/7.4/apache2/conf.d/memory-limit.ini \
  && echo "extension=timecop.so" > /etc/php/7.4/cli/conf.d/20-timecop.ini \
- && echo "extension=timecop.so" > /etc/php/7.4/apache2/conf.d/20- \
-    .ini \
+ && echo "extension=timecop.so" > /etc/php/7.4/apache2/conf.d/20-timecop.ini \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/cli/conf.d/20-upload-limits.ini \
  && echo "post_max_size=30M" >> /etc/php/7.4/cli/conf.d/20-upload-limits.ini \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
