@@ -60,8 +60,18 @@ RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
  && update-alternatives --set php /usr/bin/php7.4
 # PECL
 RUN ln -s /bin/sed /usr/bin/sed
-RUN apt install -y --no-install-recommends php-pear php7.4-dev \
- && pecl install timecop-beta
+RUN apt install -y --no-install-recommends php-pear php7.4-dev
+RUN apt-get update -y
+RUN apt-get install php-pear
+RUN pecl channel-update pecl.php.net
+RUN pear config-set php_ini /etc/php/7.4/apache2/php.ini
+RUN pecl install timecop-beta
+# CELB-599 zookeeper
+RUN apt-get -y install libzookeeper-mt2 libzookeeper-mt-dev
+RUN pecl install zookeeper-1.2.1
+RUN apt-get remove --purge -y libzookeeper-mt-dev
+RUN echo extension=\"zookeeper.so\" > /etc/php/7.4/mods-available/zookeeper.ini
+RUN ln -s /etc/php/7.4/mods-available/zookeeper.ini /etc/php/7.4/cli/conf.d/20-zookeeper.ini
 # Apache
 RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && a2dismod mpm_event php7.4 \
