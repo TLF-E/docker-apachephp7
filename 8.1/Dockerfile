@@ -81,6 +81,7 @@ RUN rm /etc/apache2/conf-enabled/* /etc/apache2/sites-enabled/*
 # PHP ini
 RUN printf '[PHP]\ndate.timezone = "UTC"\n' > /usr/local/etc/php/conf.d/tzone.ini
 RUN mkdir -p /etc/php/8.1/cli/ && ln -s /usr/local/etc/php/conf.d /etc/php/8.1/cli/conf.d
+RUN mkdir -p /etc/php/8.1/apache2/ && ln -s /usr/local/etc/php/conf.d /etc/php/8.1/apache2
 RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
