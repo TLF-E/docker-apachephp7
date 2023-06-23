@@ -79,8 +79,8 @@ RUN a2enmod rewrite ssl macro headers proxy proxy_http proxy_wstunnel
 RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
 RUN rm /etc/apache2/conf-enabled/* /etc/apache2/sites-enabled/*
 # PHP ini
+RUN touch /usr/local/etc/php/php.ini
 RUN printf '[PHP]\ndate.timezone = "UTC"\n' > /usr/local/etc/php/conf.d/tzone.ini
-RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 RUN mkdir -p /etc/php/8.1/cli && ln -s /usr/local/etc/php/php.ini /etc/php/8.1/cli/php.ini
 RUN mkdir -p /etc/php/8.1/apache2 && ln -s /usr/local/etc/php/php.ini /etc/php/8.1/apache2/php.ini
 RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
