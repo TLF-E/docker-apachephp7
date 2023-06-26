@@ -81,9 +81,16 @@ RUN rm /etc/apache2/conf-enabled/* /etc/apache2/sites-enabled/*
 # PHP ini
 RUN touch /usr/local/etc/php/php.ini
 RUN printf '[PHP]\ndate.timezone = "UTC"\n' > /usr/local/etc/php/conf.d/tzone.ini
-RUN mkdir -p /etc/php/8.1/cli && ln -s /usr/local/etc/php/php.ini /etc/php/8.1/cli/php.ini
-RUN mkdir -p /etc/php/8.1/apache2 && ln -s /usr/local/etc/php/php.ini /etc/php/8.1/apache2/php.ini
 RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN echo '[xdebug]' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.client_host=${LOCAL_IP}' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.idekey=docker' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.mode=develop,debug' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.discover_client_host=false' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.output_dir=/tmp' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
@@ -94,6 +101,9 @@ RUN rm -rf /var/lib/apt/lists/*
 COPY ./config/apache2.conf /etc/apache2/apache2.conf
 #GIT
 COPY ./config/gitconfig /root/.gitconfig
+
+ARG XDEBUG_PORT=9003
+ENV XDEBUG_PORT=$XDEBUG_PORT
 
 EXPOSE 80
 WORKDIR /var/www

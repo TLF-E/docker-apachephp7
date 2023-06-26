@@ -79,6 +79,24 @@ RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && echo "post_max_size=30M" >> /etc/php/7.4/cli/conf.d/20-upload-limits.ini \
  && echo "upload_max_filesize=20M" > /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
  && echo "post_max_size=30M" >> /etc/php/7.4/apache2/conf.d/20-upload-limits.ini \
+ && echo '[xdebug]' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.client_host=${LOCAL_IP}' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.idekey=docker' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.start_with_request=yes' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.mode=develop,debug' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.discover_client_host=false' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.output_dir=/tmp' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.level=0' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo '[xdebug]' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.client_host=${LOCAL_IP}' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.idekey=docker' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.start_with_request=yes' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.mode=develop,debug' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.discover_client_host=false' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.output_dir=/tmp' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.level=0' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
 # Bashrc
  && echo "alias ls='ls --color=auto'" >> .bashrc \
  && echo "alias ll='ls -halF'" >> .bashrc
@@ -90,6 +108,9 @@ COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./apache2-foreground /usr/local/bin/
 #GIT
 COPY ./config/gitconfig /root/.gitconfig
+
+ARG XDEBUG_PORT=9003
+ENV XDEBUG_PORT=$XDEBUG_PORT
 
 EXPOSE 80
 WORKDIR /var/www
