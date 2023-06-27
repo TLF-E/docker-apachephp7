@@ -70,6 +70,14 @@ RUN echo extension=\"uopz.so\" > /etc/php/8.1/mods-available/uopz.ini
 RUN ln -s /etc/php/8.1/mods-available/uopz.ini /etc/php/8.1/cli/conf.d/20-uopz.ini
 RUN composer global require --dev slope-it/clock-mock
 # end of V2-8301
+# Kafka
+RUN cd /tmp/ \
+ && git clone https://github.com/edenhill/librdkafka.git \
+ && cd librdkafka \
+ && ./configure \
+ && make && make install \
+ && cd /tmp/ && rm -rf /tmp/librdkafka \
+ && echo '' | pecl install rdkafka
 # Apache
 RUN apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.1
 RUN a2dismod mpm_event php8.1
@@ -81,6 +89,8 @@ RUN echo "date.timezone=UTC" > /etc/php/8.1/cli/conf.d/timezone.ini
 RUN echo "date.timezone=UTC" > /etc/php/8.1/apache2/conf.d/timezone.ini
 RUN echo "memory_limit=2048M" > /etc/php/8.1/cli/conf.d/memory-limit.ini
 RUN echo "memory_limit=2048M" > /etc/php/8.1/apache2/conf.d/memory-limit.ini
+RUN echo "extension=rdkafka.so" > /etc/php/8.1/cli/conf.d/15-kafka.ini
+RUN echo "extension=rdkafka.so" > /etc/php/8.1/apache2/conf.d/15-kafka.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
