@@ -87,7 +87,7 @@ RUN echo '[xdebug]' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.idekey=docker' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.mode=develop,debug' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.mode=${XDEBUG_MODE}' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.discover_client_host=false' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.output_dir=/tmp' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini
@@ -102,8 +102,10 @@ COPY ./config/apache2.conf /etc/apache2/apache2.conf
 #GIT
 COPY ./config/gitconfig /root/.gitconfig
 
-ARG XDEBUG_PORT=9003
-ENV XDEBUG_PORT=$XDEBUG_PORT
-
 EXPOSE 80
 WORKDIR /var/www
+
+ARG XDEBUG_PORT=9003
+ARG XDEBUG_MODE="develop,debug"
+ENV XDEBUG_PORT=$XDEBUG_PORT
+ENV XDEBUG_MODE=$XDEBUG_MODE
