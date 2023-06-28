@@ -84,18 +84,20 @@ RUN apt install -y --no-install-recommends apache2 libapache2-mod-php7.4 \
  && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
  && echo 'xdebug.idekey=docker' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
  && echo 'xdebug.start_with_request=yes' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
- && echo 'xdebug.mode=develop,debug' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.mode=${XDEBUG_MODE}' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
  && echo 'xdebug.discover_client_host=false' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
  && echo 'xdebug.output_dir=/tmp' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
+ && echo 'xdebug.log=/tmp/xdebug_apache.log' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
  && echo 'xdebug.level=0' >> /etc/php/7.4/apache2/conf.d/xdebug.ini \
  && echo '[xdebug]' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.client_host=${LOCAL_IP}' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.idekey=docker' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.start_with_request=yes' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
- && echo 'xdebug.mode=develop,debug' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.mode=${XDEBUG_MODE}' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.discover_client_host=false' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.output_dir=/tmp' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
+ && echo 'xdebug.log=/tmp/xdebug_cli.log' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
  && echo 'xdebug.level=0' >> /etc/php/7.4/cli/conf.d/xdebug.ini \
 # Bashrc
  && echo "alias ls='ls --color=auto'" >> .bashrc \
@@ -109,9 +111,11 @@ COPY ./apache2-foreground /usr/local/bin/
 #GIT
 COPY ./config/gitconfig /root/.gitconfig
 
-ARG XDEBUG_PORT=9003
-ENV XDEBUG_PORT=$XDEBUG_PORT
-
 EXPOSE 80
 WORKDIR /var/www
 ENTRYPOINT ["apache2-foreground"]
+
+ARG XDEBUG_PORT=9003
+ARG XDEBUG_MODE="develop,debug"
+ENV XDEBUG_PORT=$XDEBUG_PORT
+ENV XDEBUG_MODE=$XDEBUG_MODE
