@@ -90,6 +90,7 @@ RUN echo '[xdebug]' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.mode=${XDEBUG_MODE}' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.discover_client_host=false' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.output_dir=/tmp' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.log=/tmp/xdebug.log' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
