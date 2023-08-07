@@ -26,9 +26,8 @@ RUN apt install -y --no-install-recommends \
     imagemagick \
     ghostscript
 # Node and NPM
-RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
- && apt install -y npm nodejs \
- && apt -y update \
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+ && apt-get install -y nodejs \
  && npm install -g npm-cli-login
 # Amqproxy
 RUN wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \
