@@ -1,4 +1,4 @@
-FROM php:8.1.23-apache-buster
+FROM php:8.1.23-apache
 
 LABEL "Author"="Ghislain GAUCHER <ghislain@lancaster-solutions.com>"
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -68,7 +68,7 @@ RUN docker-php-ext-configure intl \
 
 RUN composer global require --dev slope-it/clock-mock
 # Node and NPM
-RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y npm nodejs
 RUN apt-get update -y
 RUN npm install -g npm-cli-login
