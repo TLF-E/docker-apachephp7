@@ -1,4 +1,4 @@
-FROM php:8.1.23-apache-buster
+FROM php:8.1.20-apache-buster
 
 LABEL "Author"="Ghislain GAUCHER <ghislain@lancaster-solutions.com>"
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
