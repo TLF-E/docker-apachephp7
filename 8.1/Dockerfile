@@ -93,7 +93,7 @@ RUN echo '[xdebug]' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.discover_client_host=false' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.output_dir=/tmp' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.log=/tmp/xdebug.log' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini
 RUN echo "extension=mongodb.so" > /etc/php/8.1/cli/conf.d/mongodb.ini \
  && echo "extension=mongodb.so" > /etc/php/8.1/apache2/conf.d/mongodb.ini
 # Bashrc
