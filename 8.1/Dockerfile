@@ -32,8 +32,7 @@ RUN apt-get install -y --no-install-recommends \
     libzip-dev \
     procps \
     libmagickwand-dev \
-    libmagickcore-dev \
-    mongodb-org
+    libmagickcore-dev
 
 # PHP
 RUN docker-php-ext-configure intl \
@@ -59,15 +58,16 @@ RUN docker-php-ext-configure intl \
       uopz \
       imagick \
       xdebug \
-      mongodb \
     && docker-php-ext-enable \
       amqp \
       redis \
       uopz \
       imagick \
       xdebug \
-      mongodb \
     && rm -rf /tmp/pear
+
+#mongodb extension
+RUN pecl install mongodb && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini
 
 RUN composer global require --dev slope-it/clock-mock
 # Node and NPM
@@ -95,7 +95,6 @@ RUN echo '[xdebug]' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.output_dir=/tmp' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.log=/tmp/xdebug.log' >> /usr/local/etc/php/conf.d/xdebug.ini \
  && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini
-RUN echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
