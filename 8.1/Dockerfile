@@ -32,7 +32,8 @@ RUN apt-get install -y --no-install-recommends \
     libzip-dev \
     procps \
     libmagickwand-dev \
-    libmagickcore-dev
+    libmagickcore-dev \
+    mongodb-org
 
 # PHP
 RUN docker-php-ext-configure intl \
