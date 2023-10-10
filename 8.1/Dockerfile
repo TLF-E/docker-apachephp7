@@ -58,16 +58,15 @@ RUN docker-php-ext-configure intl \
       uopz \
       imagick \
       xdebug \
+      mongodb \
     && docker-php-ext-enable \
       amqp \
       redis \
       uopz \
       imagick \
       xdebug \
+      mongodb \
     && rm -rf /tmp/pear
-
-#mongodb extension
-RUN pecl install mongodb && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini
 
 RUN composer global require --dev slope-it/clock-mock
 # Node and NPM
