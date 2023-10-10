@@ -58,12 +58,14 @@ RUN docker-php-ext-configure intl \
       uopz \
       imagick \
       xdebug \
+      mongodb \
     && docker-php-ext-enable \
       amqp \
       redis \
       uopz \
       imagick \
       xdebug \
+      mongodb \
     && rm -rf /tmp/pear
 
 RUN composer global require --dev slope-it/clock-mock
