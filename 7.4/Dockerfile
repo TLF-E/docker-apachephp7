@@ -26,9 +26,12 @@ RUN apt install -y --no-install-recommends \
     imagemagick \
     ghostscript
 # Node and NPM
-RUN curl -sL https://deb.nodesource.com/setup_8.x > setup_node && chmod +x setup_node && ./setup_node \
- && apt install -y npm nodejs \
- && apt -y update \
+ARG NODE_MAJOR=20
+RUN mkdir -p /etc/apt/keyrings \
+ && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+ && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+ && apt-get update -y \
+ && apt-get install nodejs -y \
  && npm install -g npm-cli-login
 # Amqproxy
 RUN wget -qO- https://packagecloud.io/cloudamqp/amqproxy/gpgkey | apt-key add - \

@@ -70,10 +70,13 @@ RUN docker-php-ext-configure intl \
 
 RUN composer global require --dev slope-it/clock-mock
 # Node and NPM
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y npm nodejs
-RUN apt-get update -y
-RUN npm install -g npm-cli-login
+ARG NODE_MAJOR=20
+RUN mkdir -p /etc/apt/keyrings \
+ && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+ && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+ && apt-get update -y \
+ && apt-get install nodejs -y \
+ && npm install -g npm-cli-login
 # Amqproxy
 RUN curl -s https://packagecloud.io/install/repositories/cloudamqp/amqproxy/script.deb.sh | bash
 # Apache
