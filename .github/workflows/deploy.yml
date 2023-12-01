@@ -12,7 +12,7 @@ on:
       - master
 
 jobs:
-  build-and-check74:
+  build-and-check:
     runs-on: ubuntu-latest
     outputs:
       # Define the output variable to store Dockerfile paths
