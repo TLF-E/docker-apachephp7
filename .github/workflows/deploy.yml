@@ -29,8 +29,8 @@ jobs:
             # List all Dockerfiles in the repository for push events
             DOCKERFILES=$(find . -name "Dockerfile")
           fi
-          echo "Modified Dockerfiles: $DOCKERFILES"
-          echo "::set-output name=dockerfiles::${DOCKERFILES}"
+#          echo "Modified Dockerfiles: $DOCKERFILES"
+#          echo "::set-output name=dockerfiles::${DOCKERFILES}"
 
       - name: Build Docker Images
         run: |
