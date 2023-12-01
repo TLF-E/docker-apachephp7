@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: List Modified Dockerfiles
-        id: dockerfiles
+        id: list-dockerfiles
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             # List modified Dockerfiles in pull request
@@ -28,6 +28,7 @@ jobs:
             # List all Dockerfiles in the repository for push events
             DOCKERFILES=$(find . -name "Dockerfile")
           fi
+          echo "Modified Dockerfiles: $DOCKERFILES"
           echo "::set-output name=dockerfiles::${DOCKERFILES}"
 
       - name: Build Docker Images
