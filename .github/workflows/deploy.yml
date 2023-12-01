@@ -26,6 +26,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           file: 7.4/Dockerfile
+          context: .
           tags: lancastersolutions/lap:7.4
           outputs: type=docker,dest=/tmp/lap74.tar
       - name: Upload artifact
