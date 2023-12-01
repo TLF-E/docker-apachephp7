@@ -12,7 +12,7 @@ on:
       - master
 
 jobs:
-  build_and_check:
+  build-and-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
