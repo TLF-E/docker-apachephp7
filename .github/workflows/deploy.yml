@@ -1,6 +1,7 @@
 # .github/workflows/deploy.yml
 
 name: Build and Deploy PHP Image
+run-name: Run ${{ github.run_id }} of branch ${{ github.ref_name }}
 
 on:
   pull_request:
@@ -11,24 +12,26 @@ on:
       - master
 
 jobs:
-  build-and-check:
+  build-and-check74:
     runs-on: ubuntu-latest
     outputs:
       # Define the output variable to store Dockerfile paths
       id: dockerfiles
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Build Docker Images
-        run: |
-          docker build -t lancastersolutions/lap:7.4 -f 7.4/Dockerfile .
-          docker build -t lancastersolutions/lap:8.1 -f 8.1/Dockerfile .
-          docker build -t lancastersolutions/lap:8.2 -f 8.2/Dockerfile .
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and export
+        uses: docker/build-push-action@v5
+        with:
+          file: 7.4/Dockerfile
+          tags: lancastersolutions/lap:7.4
 
   deploy-to-registry:
     needs: build-and-check
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
