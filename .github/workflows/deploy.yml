@@ -14,6 +14,9 @@ on:
 jobs:
   build-and-check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [ 7.4, 8.1, 8.2 ]
     outputs:
       # Define the output variable to store Dockerfile paths
       id: dockerfiles
@@ -25,15 +28,15 @@ jobs:
       - name: Build and export
         uses: docker/build-push-action@v5
         with:
-          file: 7.4/Dockerfile
-          context: .
-          tags: lancastersolutions/lap:7.4
-          outputs: type=docker,dest=/tmp/lap74.tar
+          file: ${{ matrix.php-version }}/Dockerfile
+          context: ${{ matrix.php-version }}
+          tags: lancastersolutions/lap:${{ matrix.php-version }}
+          outputs: type=docker,dest=/tmp/lap${{ matrix.php-version }}.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: lap74
-          path: /tmp/lap74.tar
+          name: lap${{ matrix.php-version }}
+          path: /tmp/lap${{ matrix.php-version }}.tar
 
   deploy-to-registry:
     needs: build-and-check
