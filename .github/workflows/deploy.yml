@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             # List modified Dockerfiles in pull request
-             echo "::set-output name=eventname::"${{ github.event_name }}""
+            echo ${{ github.event_name }} >> GITHUB_OUTPUT
             DOCKERFILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep '/Dockerfile' || true)
           else
             # List all Dockerfiles in the repository for push events
