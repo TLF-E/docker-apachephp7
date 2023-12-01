@@ -27,6 +27,12 @@ jobs:
         with:
           file: 7.4/Dockerfile
           tags: lancastersolutions/lap:7.4
+          outputs: type=docker,dest=/tmp/lap74.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lap74
+          path: /tmp/lap74.tar
 
   deploy-to-registry:
     needs: build-and-check
