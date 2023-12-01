@@ -22,9 +22,9 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t lancastersolutions/lap:7.4 -f path/to/Dockerfile-7.4 .
-          docker build -t lancastersolutions/lap:8.1 -f path/to/Dockerfile-8.1 .
-          docker build -t lancastersolutions/lap:8.2 -f path/to/Dockerfile-8.2 .
+          docker build -t lancastersolutions/lap:7.4 -f 7.4/Dockerfile .
+          docker build -t lancastersolutions/lap:8.1 -f 8.1/Dockerfile .
+          docker build -t lancastersolutions/lap:8.2 -f 8.2/Dockerfile .
 
   deploy-to-registry:
     needs: build-and-check
