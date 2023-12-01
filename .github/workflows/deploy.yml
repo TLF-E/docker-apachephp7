@@ -1,0 +1,60 @@
+# .github/workflows/deploy.yml
+
+name: Build and Deploy PHP Image
+run-name: Run ${{ github.run_id }} of branch ${{ github.ref_name }}
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: List Modified Dockerfiles
+        id: dockerfiles
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # List modified Dockerfiles in pull request
+            DOCKERFILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep '/Dockerfile' || true)
+          else
+            # List all Dockerfiles in the repository for push events
+            DOCKERFILES=$(find . -name "Dockerfile")
+          fi
+          echo "::set-output name=dockerfiles::${DOCKERFILES}"
+
+      - name: Build Docker Images
+        run: |
+          IFS=$'\n'
+          for DOCKERFILE in ${{ steps.list-dockerfiles.outputs.dockerfiles }}; do
+            DOCKERFILE_DIR=$(dirname "${DOCKERFILE}")
+            TAG=$(basename "${DOCKERFILE_DIR}")
+            IMAGE_NAME="lancastersolutions/lap:${TAG}"
+
+            docker build -t "${IMAGE_NAME}" "${DOCKERFILE_DIR}"
+          done
+          
+  deploy-to-registry:
+    needs: build-and-check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Push to Registry
+        run: |
+          IFS=$'\n'
+          for DOCKERFILE in ${{ needs.build-and-check.outputs.dockerfiles }}; do
+            DOCKERFILE_DIR=$(dirname "${DOCKERFILE}")
+            TAG=$(basename "${DOCKERFILE_DIR}")
+            IMAGE_NAME="lancastersolutions/lap:${TAG}"
+
+            docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+            docker push "${IMAGE_NAME}"
+          done
