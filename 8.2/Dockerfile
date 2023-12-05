@@ -57,14 +57,12 @@ RUN docker-php-ext-configure intl \
       redis \
       uopz \
       imagick \
-      xdebug \
       mongodb \
     && docker-php-ext-enable \
       amqp \
       redis \
       uopz \
       imagick \
-      xdebug \
       mongodb \
     && rm -rf /tmp/pear
 
@@ -87,16 +85,6 @@ RUN rm /etc/apache2/conf-enabled/* /etc/apache2/sites-enabled/*
 RUN touch /usr/local/etc/php/php.ini
 RUN printf '[PHP]\ndate.timezone = "UTC"\n' > /usr/local/etc/php/conf.d/tzone.ini
 RUN echo "memory_limit=2048M" > /usr/local/etc/php/conf.d/memory-limit.ini
-RUN echo '[xdebug]' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.client_host=${LOCAL_IP}' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.client_port=${XDEBUG_PORT}' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.idekey=docker' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.mode=${XDEBUG_MODE}' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.discover_client_host=false' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.output_dir=/tmp' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.log=/tmp/xdebug.log' >> /usr/local/etc/php/conf.d/xdebug.ini \
- && echo 'xdebug.level=0' >> /usr/local/etc/php/conf.d/xdebug.ini
 # Bashrc
 RUN echo "alias ls='ls --color=auto'" >> .bashrc
 RUN echo "alias ll='ls -halF'" >> .bashrc
@@ -110,8 +98,3 @@ COPY ./config/gitconfig /root/.gitconfig
 
 EXPOSE 80
 WORKDIR /var/www
-
-ARG XDEBUG_PORT=9003
-ARG XDEBUG_MODE="develop,debug"
-ENV XDEBUG_PORT=$XDEBUG_PORT
-ENV XDEBUG_MODE=$XDEBUG_MODE
