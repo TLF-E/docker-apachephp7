@@ -52,12 +52,11 @@ RUN docker-php-ext-configure intl \
       gd \
       xml \
       curl \
-    && pecl install -o -f \
+    && pecl install -o -f xdebug-3.2.2 \
       amqp \
       redis \
       uopz \
       imagick \
-      xdebug \
       mongodb \
     && docker-php-ext-enable \
       amqp \
