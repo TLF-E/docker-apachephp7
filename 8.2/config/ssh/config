@@ -1,7 +1,0 @@
-Host *
-    StrictHostKeyChecking no
-
-Host backoffice_style
-    Hostname github.com
-    User git
-    IdentityFile /root/.ssh/id_rsa
